@@ -1,0 +1,25 @@
+version: "2"
+services:
+  obnk:
+    env_file:
+      - ./envs/development.env
+    volumes:
+      - /data/obnk-data/static:/data/static
+      - /data/obnk-data/media:/data/media
+    environment:
+      - PYTHONUNBUFFERED=0
+
+  nginx:
+    volumes:
+      - /data/obnk-data/static:/data/static
+      - /data/obnk-data/media:/data/media
+    env_file:
+      - ./envs/development.env
+    ports:
+      - "80:80"
+
+  postgres:
+    volumes:
+      - /usr/local/postgresql/:/var/lib/postgresql/data
+    env_file:
+      - ./envs/development.env

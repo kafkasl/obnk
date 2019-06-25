@@ -1,0 +1,33 @@
+version: "2"
+services:
+  obnk:
+    restart: always
+    expose:
+      - "8001"
+    build: ./obnk/
+    networks:
+      - front_net
+      - back_net
+    container_name: django-obnk
+
+  nginx:
+    restart: always
+    build: ./config/nginx/
+    networks:
+      - front_net
+    container_name: nginx-obnk
+
+  postgres:
+    restart: always
+    build: ./config/postgres/
+    expose:
+      - "5432"
+    networks:
+      - back_net
+    container_name: postgres-obnk
+
+networks:
+  front_net:
+    driver: bridge
+  back_net:
+    driver: bridge
